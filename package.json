@@ -4,6 +4,7 @@
   "description": "Node.js sample app for OpenShift 3",
   "main": "server.js",
   "dependencies": {
+    "ahoi-nodejs-client": "github:sparkassen-hub/ahoi-nodejs-client",
     "chai": "^3.5.0",
     "chai-http": "^4.2.0",
     "ejs": "^2.4.1",
