@@ -144,13 +144,14 @@ module.exports = app ;
 
 async function register() {
   // Change!
-  const ahoiApi = new AhoiApiFactory(ahoiConfig);
+  let ahoiApi = new AhoiApiFactory(ahoiConfig);
 
-  const registrationApi: RegistrationApi = await ahoiApi.getRegistrationApi();
-  const installationId: RegistrationResponse = await registrationApi.register();
+  let registrationApi: RegistrationApi = await ahoiApi.getRegistrationApi();
 
-  const providerApi: ProviderApi = await ahoiApi.getProviderApi(installationId);
-  const providers: Provider[] = await providerApi.getProviders();
+  let installationId: RegistrationResponse = await registrationApi.register();
+
+  let providerApi: ProviderApi = await ahoiApi.getProviderApi(installationId);
+  let providers: Provider[] = await providerApi.getProviders();
 
   if(ahoiApi) {
     res.send('{ AHOI seems to run: }' + providers);
