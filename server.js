@@ -1,6 +1,8 @@
 //  OpenShift sample Node application
 const { AhoiApiFactory } = require('ahoi-nodejs-client');
 
+var ahoiApi = new AhoiApiFactory(ahoiConfig);
+
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
@@ -123,7 +125,13 @@ app.get('/ahoi', function (req, res) {
 
   const ahoiApi = new AhoiApiFactory(ahoiConfig);
 
-  register();
+  // register();
+  if(ahoiApi) {
+    register()
+    res.send('{ AHOI seems to run: }' + providers);
+  } else  {
+    res.send('{ AHOI seems NOT to run }');
+  }
 
 });
 
@@ -144,19 +152,13 @@ module.exports = app ;
 
 async function register() {
   // Change!
-  let ahoiApi = new AhoiApiFactory(ahoiConfig);
 
-  let registrationApi: RegistrationApi = await ahoiApi.getRegistrationApi();
+  let registrationApi: RegistrationApi = await this.ahoiApi.getRegistrationApi();
 
-  let installationId: RegistrationResponse = await registrationApi.register();
+  let installationId: RegistrationResponse = await this.registrationApi.register();
 
-  let providerApi: ProviderApi = await ahoiApi.getProviderApi(installationId);
-  let providers: Provider[] = await providerApi.getProviders();
-
-  if(ahoiApi) {
-    res.send('{ AHOI seems to run: }' + providers);
-  } else  {
-    res.send('{ AHOI seems NOT to run }');
-  }
+  let providerApi: ProviderApi = await this.ahoiApi.getProviderApi(installationId);
+  var providers: Provider[] = await providerApi.getProviders();
+  console.log('Providers: %s', providers);
 
 }
