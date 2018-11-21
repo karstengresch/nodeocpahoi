@@ -117,6 +117,7 @@ app.get('/ahoi', function (req, res) {
     clientSecret: 'gQ9bWv8jdCrTRTt',
     appSecretIv: '8NTqz1Nwl7qIRz5nEVj8YQ',
     appSecretKey: 'XdeOA4I-Y8WWQZvwjmd2Hg',
+    "cryptKey":'myWonderfulCryptKey',
     baseurl: 'https://banking-sandbox.starfinanz.de/ahoi/api/v2',
   };
 
