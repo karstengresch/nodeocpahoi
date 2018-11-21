@@ -143,6 +143,7 @@ console.log('Server running on http://%s:%s', ip, port);
 module.exports = app ;
 
 async function register() {
+  // Change!
   const ahoiApi = new AhoiApiFactory(ahoiConfig);
 
   const registrationApi: RegistrationApi = await ahoiApi.getRegistrationApi();
