@@ -1,8 +1,10 @@
 //  OpenShift sample Node application
+const { AhoiApiFactory } = require('ahoi-api-node');
+
 var express = require('express'),
     app     = express(),
     morgan  = require('morgan');
-    
+
 Object.assign=require('object-assign')
 
 app.engine('html', require('ejs').renderFile);
@@ -24,7 +26,7 @@ if (mongoURL == null) {
     mongoPassword = process.env[mongoServiceName + '_PASSWORD'];
     mongoUser = process.env[mongoServiceName + '_USER'];
 
-  // If using env vars from secret from service binding  
+  // If using env vars from secret from service binding
   } else if (process.env.database_name) {
     mongoDatabase = process.env.database_name;
     mongoPassword = process.env.password;
@@ -107,6 +109,25 @@ app.get('/pagecount', function (req, res) {
   } else {
     res.send('{ pageCount: -1 }');
   }
+});
+
+app.get('/ahoi', function (req, res) {
+  const ahoiConfig = {
+    clientId: 'SBM_mDMo5UppDAI',
+    clientSecret: 'gQ9bWv8jdCrTRTt',
+    appSecretIv: '8NTqz1Nwl7qIRz5nEVj8YQ',
+    appSecretKey: 'XdeOA4I-Y8WWQZvwjmd2Hg',
+    baseurl: 'https://banking-sandbox.starfinanz.de/ahoi/api/v2',
+  };
+
+  const ahoiApi = new AhoiApiFactory(ahoiConfig);
+
+  if(ahoiApi) {
+    res.send('{ AHOI seems to run }');
+  } else  {
+    res.send('{ AHOI seems NOT to run }');
+  }
+
 });
 
 // error handling
