@@ -123,11 +123,7 @@ app.get('/ahoi', function (req, res) {
 
   const ahoiApi = new AhoiApiFactory(ahoiConfig);
 
-  if(ahoiApi) {
-    res.send('{ AHOI seems to run }');
-  } else  {
-    res.send('{ AHOI seems NOT to run }');
-  }
+  register();
 
 });
 
@@ -145,3 +141,20 @@ app.listen(port, ip);
 console.log('Server running on http://%s:%s', ip, port);
 
 module.exports = app ;
+
+async function register() {
+  const ahoiApi = new AhoiApiFactory(ahoiConfig);
+
+  const registrationApi: RegistrationApi = await ahoiApi.getRegistrationApi();
+  const installationId: RegistrationResponse = await registrationApi.register();
+
+  const providerApi: ProviderApi = await ahoiApi.getProviderApi(installationId);
+  const providers: Provider[] = await providerApi.getProviders();
+
+  if(ahoiApi) {
+    res.send('{ AHOI seems to run: }' + providers);
+  } else  {
+    res.send('{ AHOI seems NOT to run }');
+  }
+
+}
