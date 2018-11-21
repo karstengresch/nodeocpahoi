@@ -1,5 +1,5 @@
 //  OpenShift sample Node application
-const { AhoiApiFactory } = require('ahoi-api-node');
+const { AhoiApiFactory } = require('ahoi-nodejs-client');
 
 var express = require('express'),
     app     = express(),
