@@ -158,7 +158,7 @@ async function register() {
   let installationId: RegistrationResponse = await this.registrationApi.register();
 
   let providerApi: ProviderApi = await this.ahoiApi.getProviderApi(installationId);
-  var providers: Provider[] = await providerApi.getProviders();
+  let providers: Provider[] = await providerApi.getProviders();
   console.log('Providers: %s', providers);
 
 }
